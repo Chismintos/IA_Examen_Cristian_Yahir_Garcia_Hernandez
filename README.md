@@ -112,7 +112,8 @@ Después de realizar el preprocesamiento de los datos y entrenar el modelo de **
 Se generó una gráfica de barras que muestra la distribución de estudiantes **aprobados (1)** y **no aprobados (0)** dentro del dataset.
 
 📌 **Evidencia:**  
-Gráfica de distribución de aprobados y no aprobados.
+
+<img width="592" height="472" alt="imagen" src="https://github.com/user-attachments/assets/c04e333d-ebb4-4254-9b46-a4d858ac20f0" />
 
 Esta gráfica permite observar la cantidad de estudiantes en cada clase, lo cual es importante para entender el comportamiento del dataset antes del entrenamiento del modelo.
 
@@ -140,7 +141,8 @@ Se generó la siguiente matriz de confusión para analizar con mayor detalle las
 | **Aprobado** | 2 | 212 |
 
 📌 **Evidencia:**  
-Matriz de confusión del modelo de Regresión Logística.
+
+<img width="596" height="469" alt="imagen" src="https://github.com/user-attachments/assets/adbbc20f-a08c-4508-a5ba-a13975a50010" />
 
 **Interpretación:**
 - El modelo clasificó correctamente **83 estudiantes no aprobados**.
@@ -149,17 +151,6 @@ Matriz de confusión del modelo de Regresión Logística.
 
 ---
 
-### 🔹 Análisis final de resultados
-
-Con base en los resultados obtenidos, se concluye que **sí fue posible clasificar el comportamiento de los estudiantes (aprobado / no aprobado)** utilizando información académica y demográfica.
-
-El modelo de **Regresión Logística** mostró ser adecuado para este problema debido a su simplicidad, buen rendimiento y facilidad de interpretación.
-
----
-
-### ✅ Conclusión de los resultados
-
-El modelo entrenado cumple con el objetivo del proyecto, logrando **predecir correctamente el estado de aprobación de los estudiantes**, cumpliendo con todos los requisitos establecidos en el examen de recuperación.
 
 # 9 Explicación final
 
