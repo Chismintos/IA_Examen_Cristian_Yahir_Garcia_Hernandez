@@ -11,153 +11,122 @@
 
 ## 1. Objetivo del proyecto
 
-El objetivo de este proyecto es **construir un modelo de Inteligencia Artificial capaz de clasificar un comportamiento**, específicamente **predecir si un estudiante aprueba o no una materia** a partir de información académica previa.
+El objetivo de este proyecto es **construir un modelo de Inteligencia Artificial capaz de clasificar un comportamiento académico**, específicamente **predecir si un estudiante aprueba o no una evaluación general**, utilizando información demográfica, educativa y resultados académicos.
 
-Este problema corresponde a un **problema de clasificación binaria**, donde:
+El problema se aborda como un **problema de clasificación binaria**, donde:
 
 * `1` representa que el estudiante **aprueba**
 * `0` representa que el estudiante **no aprueba**
 
 ---
 
-## 2. Descripción del comportamiento predicho
+## 2. Dataset utilizado
 
-Sí, **el comportamiento fue correctamente clasificado**.
+Se utilizó un **dataset académico de estudiantes**, el cual contiene información demográfica, nivel educativo de los padres, preparación previa y calificaciones obtenidas.
 
-El modelo analiza variables como:
+### Variables del dataset:
 
-* Horas de estudio
-* Porcentaje de asistencia
-* Sexo
-* Promedio previo
-
-A partir de estos datos, el modelo aprende patrones que le permiten **clasificar el comportamiento del estudiante** y predecir si aprobará o no la materia. Esto cumple directamente con el objetivo del examen de **predecir un comportamiento usando IA**.
-
----
-
-## 3. Dataset utilizado
-
-El dataset contiene 10 registros y 5 columnas:
-
-* `horas_estudio`: Número de horas dedicadas al estudio
-* `asistencia`: Porcentaje de asistencia a clases
-* `sexo`: Variable categórica (M / F)
-* `promedio`: Promedio académico previo
-* `aprobado`: Variable objetivo (0 = No aprobado, 1 = Aprobado)
+* `Genero`: Género del estudiante
+* `Etnia`: Grupo étnico
+* `Nivel educativo de los padres`: Nivel académico máximo alcanzado por los padres
+* `Examen de preparacion`: Indica si el estudiante completó un curso de preparación
+* `Matematicas`: Calificación obtenida en matemáticas
+* `Lectura`: Calificación obtenida en lectura
+* `Escritura`: Calificación obtenida en escritura
 
 El dataset fue cargado utilizando la librería **pandas**.
 
----
+Pagina de origen del dataset: https://www.kaggle.com/datasets/ernestohinojosa/estudiantes?resource=download&select=Estudiantes.csv
 
-## 4. Análisis inicial del dataset
-
-Se realizaron las siguientes acciones iniciales:
-
-* Visualización de las dimensiones del dataset
-* Revisión de los tipos de datos
-* Verificación de valores nulos
-
-El análisis mostró que el dataset no contenía valores nulos, por lo que no fue necesario imputarlos.
 
 ---
 
-## 5. Preprocesamiento de datos
+## 3. Comportamiento a predecir
 
-Se aplicaron varias técnicas de preprocesamiento:
+A partir de las calificaciones de matemáticas, lectura y escritura, se calculó un **promedio general**.
 
-### 5.1 Limpieza de datos
+Se creó una variable objetivo llamada `aprobado`, definida de la siguiente manera:
 
-* Eliminación de valores nulos en caso de existir
+* Promedio ≥ 60 → **Aprobado (1)**
+* Promedio < 60 → **No aprobado (0)**
 
-### 5.2 Codificación de variables categóricas
-
-* La variable `sexo` fue transformada a valores numéricos utilizando `LabelEncoder`
-
-### 5.3 Normalización
-
-* Se aplicó `StandardScaler` para normalizar las variables numéricas
-* Esto permitió que todas las características estuvieran en la misma escala
+De esta forma, el modelo aprende a **clasificar el comportamiento académico del estudiante**.
 
 ---
 
-## 6. División de los datos
+## 4. Preprocesamiento de datos
 
-Los datos fueron divididos en:
+Se aplicaron las siguientes técnicas de preprocesamiento:
 
-* **70% entrenamiento**
-* **30% prueba**
-
-Se utilizó una división **estratificada**, garantizando que ambas clases (aprobado y no aprobado) estuvieran presentes en ambos conjuntos.
+* Verificación y eliminación de valores nulos
+* Codificación de variables categóricas mediante `LabelEncoder`
+* Normalización de variables numéricas usando `StandardScaler`
 
 ---
 
-## 7. Modelo de Machine Learning utilizado
+## 5. División de los datos
 
-Se utilizó el modelo de **Regresión Logística**, el cual fue visto en clase y es adecuado para problemas de clasificación binaria.
+El dataset fue dividido en:
+
+* 70% para entrenamiento
+* 30% para prueba
+
+Se utilizó una división estratificada para asegurar que ambas clases estuvieran representadas.
+
+---
+
+## 6. Modelo de Machine Learning
+
+Se utilizó el modelo de **Regresión Logística**, adecuado para problemas de clasificación binaria y visto en clase.
 
 ### Justificación del modelo:
 
-* Es simple y eficiente
-* Funciona bien con datasets pequeños
-* Permite interpretar fácilmente los resultados
-* Es ideal para clasificación de dos clases
+* Sencillo y eficiente
+* Fácil de interpretar
+* Buen desempeño con datasets pequeños
+* Ideal para clasificación binaria
 
 ---
 
-## 8. Entrenamiento del modelo
+## 7. Evaluación del modelo
 
-El modelo fue entrenado utilizando el conjunto de entrenamiento y la librería **scikit-learn**.
+El desempeño del modelo se evaluó utilizando las siguientes métricas:
 
-Durante el entrenamiento, el modelo aprendió la relación entre las variables de entrada y el comportamiento objetivo (aprobado / no aprobado).
+* Accuracy
+* Precisión
+* Recall
+* Matriz de confusión
 
----
-
-## 9. Evaluación del modelo
-
-El modelo fue evaluado utilizando las siguientes métricas:
-
-* **Accuracy**: Proporción de predicciones correctas
-* **Precisión**: Qué tan confiables son las predicciones positivas
-* **Recall**: Capacidad del modelo para identificar correctamente a los aprobados
-* **Matriz de confusión**: Visualización de aciertos y errores del modelo
-
-También se generaron gráficas:
-
-* Distribución de la variable objetivo
-* Matriz de confusión visual
+Además, se generaron gráficas para analizar visualmente los resultados.
 
 ---
 
-## 10. Explicación final de los resultados
+## 8. Resultados y explicación final
 
-Los resultados obtenidos indican que **sí fue posible clasificar y predecir el comportamiento de los estudiantes**.
+Los resultados obtenidos muestran que **sí fue posible predecir y clasificar el comportamiento académico de los estudiantes**.
 
-El modelo logró identificar patrones entre las variables académicas y el resultado final, permitiendo predecir correctamente si un estudiante aprobaría o no. Aunque el dataset es pequeño, el modelo funciona correctamente y cumple el objetivo del proyecto.
-
-La matriz de confusión muestra cómo el modelo distingue entre estudiantes aprobados y no aprobados, y las métricas indican un desempeño aceptable para un ejercicio académico.
+El modelo logró identificar patrones entre las variables demográficas, educativas y las calificaciones, permitiendo predecir si un estudiante aprobará o no. Aunque el dataset es de tamaño reducido, el modelo cumple correctamente el objetivo académico del proyecto.
 
 ---
 
-## 11. Problemas presentados durante el desarrollo
+## 9. Problemas presentados
 
-Uno de los principales problemas fue el tamaño reducido del dataset, lo cual inicialmente provocó métricas indefinidas. Este problema se solucionó utilizando una división estratificada de los datos, asegurando la representación de ambas clases.
-
----
-
-## 12. Posibles mejoras
-
-Si se contara con más tiempo o información, se podrían implementar las siguientes mejoras:
-
-* Usar un dataset más grande
-* Probar otros modelos como Árboles de Decisión o KNN
-* Ajustar hiperparámetros
-* Agregar más variables relevantes
+El principal problema fue el tamaño limitado del dataset, lo que inicialmente provocó métricas indefinidas. Este inconveniente se solucionó aplicando una división estratificada de los datos.
 
 ---
 
-## 13. Instrucciones para ejecutar el proyecto
+## 10. Posibles mejoras
 
-1. Instalar las dependencias:
+* Uso de un dataset más grande
+* Comparación con otros modelos (Árboles de Decisión, KNN)
+* Ajuste de hiperparámetros
+* Inclusión de más variables relevantes
+
+---
+
+## 11. Instrucciones de ejecución
+
+1. Instalar dependencias:
 
 ```bash
 pip install -r requirements.txt
@@ -171,6 +140,6 @@ python modelo.py
 
 ---
 
-## 14. Conclusión
+## 12. Conclusión
 
-Este proyecto cumple con todos los requisitos del examen de recuperación y demuestra la aplicación completa de un flujo de Machine Learning: carga de datos, preprocesamiento, entrenamiento, evaluación y visualización. El comportamiento fue correctamente clasificado utilizando técnicas de Inteligencia Artificial.
+Este proyecto demuestra la aplicación completa de un flujo de Machine Learning para la clasificación de un comportamiento académico, cumpliendo todos los requisitos del examen de recuperación.

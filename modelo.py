@@ -1,11 +1,9 @@
 import pandas as pd
-import numpy as np
-
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
 
@@ -26,39 +24,52 @@ print(df.dtypes)
 print("\nValores nulos:")
 print(df.isnull().sum())
 
-# Eliminar valores nulos si existieran
 df = df.dropna()
 
 # =========================
-# 3. Gráfica: distribución de la variable objetivo
+# 3. Crear variable objetivo
+# =========================
+df["promedio"] = (df["Matematicas"] + df["Lectura"] + df["Escritura"]) / 3
+df["aprobado"] = df["promedio"].apply(lambda x: 1 if x >= 60 else 0)
+
+# =========================
+# 4. Gráfica distribución
 # =========================
 plt.figure()
 sns.countplot(x="aprobado", data=df)
-plt.title("Distribución de la variable objetivo")
+plt.title("Distribución de Aprobados y No Aprobados")
 plt.xlabel("Aprobado (0 = No, 1 = Sí)")
 plt.ylabel("Cantidad")
 plt.show()
 
 # =========================
-# 4. Codificación de variables categóricas
+# 5. Codificación categórica
 # =========================
+columnas_categoricas = [
+    "Genero",
+    "Etnia",
+    "Nivel educativo de los padres",
+    "Examen de preparacion"
+]
+
 encoder = LabelEncoder()
-df["sexo"] = encoder.fit_transform(df["sexo"])
+for col in columnas_categoricas:
+    df[col] = encoder.fit_transform(df[col])
 
 # =========================
-# 5. Separar variables
+# 6. Selección de variables
 # =========================
-X = df.drop("aprobado", axis=1)
+X = df.drop(["aprobado", "promedio"], axis=1)
 y = df["aprobado"]
 
 # =========================
-# 6. Normalización
+# 7. Normalización
 # =========================
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # =========================
-# 7. Train / Test (con stratify)
+# 8. Train / Test
 # =========================
 X_train, X_test, y_train, y_test = train_test_split(
     X_scaled,
@@ -69,18 +80,18 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 # =========================
-# 8. Modelo
+# 9. Modelo
 # =========================
 modelo = LogisticRegression()
 modelo.fit(X_train, y_train)
 
 # =========================
-# 9. Predicciones
+# 10. Predicciones
 # =========================
 y_pred = modelo.predict(X_test)
 
 # =========================
-# 10. Evaluación
+# 11. Evaluación
 # =========================
 accuracy = accuracy_score(y_test, y_pred)
 precision = precision_score(y_test, y_pred, zero_division=0)
@@ -95,7 +106,7 @@ print("Matriz de confusión:")
 print(matriz)
 
 # =========================
-# 11. Gráfica Matriz de Confusión
+# 12. Gráfica Matriz de Confusión
 # =========================
 plt.figure()
 sns.heatmap(
